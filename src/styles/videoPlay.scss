@@ -1,0 +1,289 @@
+$activeColor: teal;
+$activeColorLight: rgb(61, 212, 212);
+.navPopTop {
+  position: fixed;
+  width: auto;
+  height: 0%;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  transition: '1s';
+  background: rgba(255, 255, 255, 0.5);
+  &.showTop{
+    height: calc(100vh);
+    top: 0;
+  }
+}
+.navPopContent{
+  box-sizing: border-box;
+  position: relative;
+  background: inherit;
+  box-shadow: 0px 5px 0px #aaa;
+  width: 100%;
+  height: 100%;
+}
+.navPopContentBottom{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .content{
+    width: inherit;
+    height: inherit;
+    overflow: inherit;
+    display: flex;
+    /* 左布局 */
+    .left{
+      position: relative;
+      width: 100%;
+      margin: unset;
+      padding: unset;
+      height: inherit;
+      background-color: #f5f5f5be;
+      z-index: 90;
+      &.showRight{
+        width: calc(100% - 280px); // left = 100% - right的宽度
+      }
+    }
+    /* 左聚焦则显示中悬浮部分 */
+    .left:hover+.center{
+      display: inline-block;
+    }
+    /* 中悬浮部分 */
+    .center{
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 100px;
+      line-height: 100px;
+      box-shadow: -1px 0px 4px #f0f0f0;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 2px 0 0 2px;
+      z-index: 100;
+      cursor: pointer;
+      &:hover{
+        display: inline-block;
+      }
+      &.showRight{
+        right: 280px; // right的宽度
+      }
+      i{
+        font-size: 20px;
+        font-weight: bold;
+        width: 100%;
+        text-align: center;
+        color: $activeColor;
+      }
+    }
+    /* 右布局 */
+    .right{
+      width: 0px;
+      height: inherit;
+      overflow-y: auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: unset;
+      &.showRight{
+        width: 280px; // right的宽度
+      }
+    }
+  }
+
+  /* 视频排列 */
+  /deep/ .videoRow{
+    height: 100%;
+    // 4宫格时两row各row高度
+    .r2{
+      height: 50%;
+    }
+    // 9、12宫格时两row各row高度
+    .r3{
+      height: 33.33333333%;
+    }
+    // 某个全屏时，其他row的高度
+    .r0{
+      height: .1px;
+    }
+  }
+  /deep/ .videoBox{
+    position: relative;
+    background-color: rgba(102, 102, 102, 0.65);
+    border: 1px solid #333;
+    height: 100%;
+    &.active//, &:hover
+    {
+      z-index: 80;
+      border-width: 4px;
+      border-color: $activeColor;
+    }
+    .videoTitleBar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      padding: 0 20px;
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 50px;
+      line-height: 50px;
+      z-index: 100;
+      display: none;
+      .title,
+      .action{
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        -o-text-overflow: ellipsis;
+        white-space:nowrap;
+      }
+      .title{
+        color: #fff;
+        text-align: left;
+      }
+      .action {
+        .el-button {
+          padding: 0;
+        }
+        i{
+          color: #fff;
+          font-size: 20px;
+        }
+      }
+    }
+    &.active .videoTitleBar,
+    &:hover .videoTitleBar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .videoModal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 90; // 小于videoTitleBar
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      .title{
+        position: inherit;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%);
+        text-align: center;
+        width: auto;
+        height: 40px;
+        line-height: 40px;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        padding: 0 20px;
+        border-radius: 50px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        -o-text-overflow: ellipsis;
+        white-space:nowrap;
+      }
+    }
+  }
+
+  /* 控制台 */
+  /deep/ .box-content{
+    height: inherit;
+    position: relative;
+    /deep/ .cell{
+      .active{
+        font-weight: bold;
+        color: $activeColor;
+      }
+    }
+
+    /* 快捷列表 */
+    .content-list{
+      padding-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      .el-button {
+        padding: unset;
+        margin: 5px 10px;
+      }
+      i{
+        color: $activeColor;
+        font-size: 30px;
+        &:hover{
+          color: $activeColorLight;
+        }
+      }
+    }
+
+    /*Slider调整*/
+    .content-slider{
+      padding: 20px 15px;
+      .line-slider{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .title,
+        .value{
+          height: 40px;
+          line-height: 40px;
+          color: $activeColor;
+          overflow: hidden;
+          text-overflow: ellipsis; 
+          -o-text-overflow: ellipsis;
+          white-space:nowrap;
+        }
+        .title{
+          text-align: left;
+          width: 25%;
+        }
+        .value{
+          text-align: right;
+          width: 10%;
+        }
+        .slider{
+          width: 65%;
+          padding-right: 5px;
+        }
+      }
+    }
+
+    /* 宫格切换 */
+    .content-grids{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+      /deep/ .row-grid{
+        border: 1px solid #999;
+        .grid{
+          border: 1px solid #999;
+          border-radius: unset;
+        }
+        &.active {
+          border-color: $activeColor;
+          .grid{
+            border-color: $activeColor;
+          }
+        }
+      }
+    }
+
+    /* 关闭按钮 */
+    .content-btn{
+      padding: 10px 0;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+
+}
+.cursor{
+  cursor: pointer;
+}
