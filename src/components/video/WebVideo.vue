@@ -29,7 +29,8 @@ import 'videojs-flash'
 // 播放HLS流（原生video）
 import 'videojs-contrib-hls'
 // 设置flash路径，用于在videojs发现浏览器不支持HTML5播放器的时候自动唤起flash播放器
-const SWF_URL = '/static/video/video-js.swf' // 'https://cdn.bootcdn.net/ajax/libs/videojs-swf/5.4.2/video-js.swf'
+// const SWF_URL = '/assets/video/video-js.swf' // 'https://cdn.bootcdn.net/ajax/libs/videojs-swf/5.4.2/video-js.swf'
+import SWF_URL from '@/assets/video/video-js.swf'
 videojs.options.flash.swf = SWF_URL
 export default {
   /** *
