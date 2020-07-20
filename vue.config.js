@@ -1,6 +1,10 @@
 /* See：https://cli.vuejs.org/config/ */
 module.exports = {
   publicPath: './',
+  // devServer: {
+  //   host: 'localhost',
+  //   port: 9191
+  // },
   // Adding a New Loader
   chainWebpack: config => {
     // file-loader swf
