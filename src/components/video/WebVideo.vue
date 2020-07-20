@@ -64,7 +64,7 @@ export default {
       // 播放器属性配置
       playerOptions: {
         // width: '800px', // 设置视频播放器的显示宽度（以像素为单位）
-        // height: '400px', // 设置视频播放器的显示高度（以像素为单位） myPlayer.size(640,480); // 同时设置视频高宽
+        // height: '400px', // 设置视频播放器的显示高度（以像素为单位） player.size(640,480); // 同时设置视频高宽
         live: true,
         autoplay: true, // 如果true，浏览器准备好时开始播放
         muted: false, // 默认情况下将会消除任何音频
@@ -86,6 +86,7 @@ export default {
           fullscreenToggle: true // 全屏按钮
 
         },
+        playbackRates: [0.5, 1, 1.5, 2, 2.5, 3], // 播放速率，controls=true时才会显示
         techOrder: ['html5', 'flash'], // 设置顺序
         flash: { hls: { withCredentials: false }, swf: SWF_URL },
         html5: { hls: { withCredentials: false }},
@@ -143,6 +144,10 @@ export default {
       }
       this.playerOptions.sources.splice(0, 1, source)
       console.log('playerOptions.sources', this.playerOptions.sources)
+      // 播放视频则显示操作栏
+      if (source.type.startsWith('video/')) {
+        this.playerOptions['controls'] = true
+      }
       // 其他参数
       if (this.videoPosterUrl) this.playerOptions['poster'] = this.videoPosterUrl
       // console.log('playerOptions', this.playerOptions)

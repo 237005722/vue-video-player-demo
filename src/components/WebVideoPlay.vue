@@ -26,14 +26,14 @@
                           <i class="el-icon-full-screen" />
                         </el-button>
                       </el-tooltip>
-                      <el-tooltip content="暂停当前播放" effect="light" placement="bottom-end">
-                        <el-button type="text" @click="pauseVideo(index, item)">
-                          <i class="el-icon-video-pause" />
-                        </el-button>
-                      </el-tooltip>
-                      <el-tooltip content="开始当前播放" effect="light" placement="bottom-end">
+                      <el-tooltip v-if="item.pause" content="开始当前播放" effect="light" placement="bottom-end">
                         <el-button type="text" @click="playVideo(index, item)">
                           <i class="el-icon-video-play" />
+                        </el-button>
+                      </el-tooltip>
+                      <el-tooltip v-else content="暂停当前播放" effect="light" placement="bottom-end">
+                        <el-button type="text" @click="pauseVideo(index, item)">
+                          <i class="el-icon-video-pause" />
                         </el-button>
                       </el-tooltip>
                       <el-tooltip content="关闭当前播放" effect="light" placement="bottom-end">
@@ -370,11 +370,13 @@ export default {
     // 播放此视频
     playVideo(index, item) {
       console.log('playVideo item', item)
+      item.pause = false
       this.$refs['webVideo_' + index][0].play()
     },
     // 暂停此视频
     pauseVideo(index, item) {
       console.log('pauseVideo item', item)
+      item.pause = true
       this.$refs['webVideo_' + index][0].pause()
     },
     // 自定义全屏这个视频
@@ -434,6 +436,7 @@ export default {
             show: false, // 此宫格是否播放视频源
             showModal: true, // 显示遮罩
             fullScreen: false, // 是否全屏
+            pause: false, // 是否暂停
             source: null // 视频源
           })
         }
@@ -534,6 +537,7 @@ export default {
             this.videoDivList[index].show = true
             this.videoDivList[index].showModal = true
             this.videoDivList[index].fullScreen = false
+            this.videoDivList[index].pause = false
             // 如果有播放源的类型是type: 'rtmp/flv'，并且flash未启用，则隐藏遮罩，方便用户点击启用flash
             if (item.type === 'rtmp/flv' && !this.hasUsableFlash) {
               console.log(`videoDivList[${index}]`, this.hasUsableFlash)
