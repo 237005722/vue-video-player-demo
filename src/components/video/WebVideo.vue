@@ -112,7 +112,7 @@ export default {
       immediate: true, // 及时生效
       handler(val) {
         console.log('watch videoSource', val)
-        if (!val && ('src' in val)) {
+        if (!val || !('src' in val)) {
           return
         }
         // 重新初始化
